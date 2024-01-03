@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <ctime>
+#include <vector>
 
 class Track{
 private:
@@ -28,14 +29,24 @@ public:
     }
 };
 
+class Player{
+private:
+    Track* sound;
+    std::vector<Track> playList;
+
+public:
+    void writePlayList(){
+
+    }
+};
 int main() {
- Track sound;
+ //Track sound;
  std::string testNameTrack = "Test276";
  std::tm createdTrack{0, 30, 17, 12, 4, 121};
  int durationInt = 30;
 
 
 
- sound.setTrack(testNameTrack, &createdTrack, durationInt );
- sound.getTrack();
+ //sound.setTrack(testNameTrack, &createdTrack, durationInt );
+ //sound.getTrack();
 }
