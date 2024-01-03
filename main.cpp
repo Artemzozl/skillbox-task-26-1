@@ -9,12 +9,12 @@ private:
     std::time_t t = std::time(nullptr);
     std::tm* created = std::localtime(&t);
     int duration = 0;
-   // std::time_t durationTime = static_cast<time_t>(duration);
+
 
 public:
-    void setTrack(std::string titleTrack,/*std::tm* createdTrack,*/ int durationTrack ){
+    void setTrack(std::string titleTrack,std::tm* createdTrack, int durationTrack ){
         title = titleTrack;
-       // created = createdTrack;
+        created = createdTrack;
         duration = durationTrack;
 
     }
@@ -22,7 +22,7 @@ public:
     void getTrack(){
         std::time_t durationTime = static_cast<time_t>(duration);
         std::cout << "Name track: " << title << std::endl;
-       // std::cout << "Created track: " << created << std::endl;
+        std::cout << "Created track: " << std::put_time(created, "%m/%Y") << std::endl;
         std::cout << "Duration track: " << std::put_time(std::localtime(&durationTime), "%M min : %S sec")
                    << std::endl;
     }
@@ -31,8 +31,11 @@ public:
 int main() {
  Track sound;
  std::string testNameTrack = "Test276";
+ std::tm createdTrack{0, 30, 17, 12, 4, 121};
  int durationInt = 30;
 
- sound.setTrack(testNameTrack, durationInt );
+
+
+ sound.setTrack(testNameTrack, &createdTrack, durationInt );
  sound.getTrack();
 }
