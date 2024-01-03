@@ -1,7 +1,10 @@
 #include <iostream>
+#include <string>
+
+class Track{
+    std::string title = "Unknown";
+};
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    std::cout << "Hello GitHub!" << std::endl;
-    return 0;
+
 }
