@@ -35,7 +35,7 @@ public:
 class Player{
 private:
     std::vector<Track> playList;
-    Track* sound;
+
 public:
 
     bool status = false;
@@ -51,15 +51,23 @@ public:
       }
     }
 
-    void playMusic(const std::string& title){
-        for (size_t i = 0; i < playList.size(); i++){
-            if (playList[i].getTitle() == title){
-                std::cout << "Playing selected track:" << std::endl;
-                playList[i].getTrack();
-                return;
+    void playMusic(const std::string& title) {
+            for (size_t i = 0; i < playList.size(); i++) {
+                if (playList[i].getTitle() == title) {
+                        if (state == PlayerStatus::STOP) {
+                            status = true;
+                        }
+                    if (status && state != PlayerStatus::PLAY){
+                        state = PlayerStatus::PLAY;
+                        std::cout << "Playing selected track:" << std::endl;
+                        playList[i].getTrack();
+                        std::cout << "Please pause or stop current track" << std::endl;
+                    } else{
+                        std::cout << "Track not found in the playlist!" << std::endl;
+                    }
+                    return;
+                }
             }
-        }
-        std::cout << "Track not found in the playlist!" << std::endl;
     }
 
     };
@@ -68,6 +76,7 @@ int main() {
     std::string command, trackName;
     Track sound1, sound2, sound3;
     Player music;
+
     sound1.setTrack("Test Sound 1.mp3", {0, 0, 0, 0, 4, 123}, 31 );
     sound2.setTrack("Test Sound 2.mp3", {0, 0, 0, 0, 3, 122}, 32 );
     sound3.setTrack("Test Sound 3.mp3", {0, 0, 0, 0, 2, 121}, 33 );
@@ -82,10 +91,10 @@ int main() {
         if (command == "read"){
             music.displayPlayList();
         } else if (command == "play"){
-            std::cout << "Input track name to play: ";
-            std::cin.ignore();
-            std::getline(std::cin, trackName);
-            music.playMusic(trackName);
+                std::cout << "Input track name to play: ";
+                std::cin.ignore();
+                std::getline(std::cin, trackName);
+                music.playMusic(trackName);
         }
     }
 
