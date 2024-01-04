@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 
+
 class Track{
 private:
     std::string title = "Unknown";
@@ -47,15 +48,23 @@ public:
 };
 
 int main() {
+    std::string command;
     Track sound1, sound2, sound3;
     Player music;
-    sound1.setTrack("Test Sound 1", {0, 0, 0, 0, 4, 123}, 31 );
-    sound2.setTrack("Test Sound 2", {0, 0, 0, 0, 3, 122}, 32 );
-    sound3.setTrack("Test Sound 3", {0, 0, 0, 0, 2, 121}, 33 );
+    sound1.setTrack("Test Sound 1.mp3", {0, 0, 0, 0, 4, 123}, 31 );
+    sound2.setTrack("Test Sound 2.mp3", {0, 0, 0, 0, 3, 122}, 32 );
+    sound3.setTrack("Test Sound 3.mp3", {0, 0, 0, 0, 2, 121}, 33 );
     music.addPlayList(sound1);
     music.addPlayList(sound2);
     music.addPlayList(sound3);
-    music.displayPlayList();
 
+    std::cout << "Music player (command: read - view playlist, play, pause, stop and exit" << std::endl;
+    while (command != "exit"){
+        std::cout << "Input command player: ";
+        std::cin >> command;
+        if (command == "read"){
+            music.displayPlayList();
+        }
+    }
 
 }
