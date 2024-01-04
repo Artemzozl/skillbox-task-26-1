@@ -31,11 +31,10 @@ public:
 int main() {
     Track sound;
     std::string testNameTrack = "Test276";
-    std::tm createdTrack{0, 30, 17, 12, 4, 121};
-    int durationInt = 30;
-
-
-
+    std::tm createdTrack{0, 30, 17, 12, 1, 121};
+    int durationInt = 180;
     sound.setTrack(testNameTrack, &createdTrack, durationInt );
     sound.getTrack();
+
+
 }
