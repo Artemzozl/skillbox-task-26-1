@@ -4,14 +4,16 @@
 #include <ctime>
 #include <vector>
 
-
+enum class PlayerStatus{
+    PLAY,
+    PAUSE,
+    STOP
+};
 class Track{
 private:
     std::string title = "Unknown";
     std::tm created;
     std::time_t duration;
-
-
 
 public:
     void setTrack(std::string titleTrack,std::tm createdTrack, int durationTrack ){
@@ -25,17 +27,20 @@ public:
         std::cout << "Created track: " << std::put_time(&created, "%m/%Y") << std::endl;
         std::cout << "Duration track: " << std::put_time(std::localtime(&duration), "%M min : %S sec")
                 << std::endl;
-
-
     }
+    const std::string& getTitle() const {return title;}
 
 };
 
 class Player{
 private:
     std::vector<Track> playList;
-
+    Track* sound;
 public:
+
+    bool status = false;
+    PlayerStatus state = PlayerStatus::STOP;
+
     void addPlayList(Track &track){
         playList.push_back(track);
     }
@@ -45,10 +50,22 @@ public:
            track.getTrack();
       }
     }
-};
+
+    void playMusic(const std::string& title){
+        for (size_t i = 0; i < playList.size(); i++){
+            if (playList[i].getTitle() == title){
+                std::cout << "Playing selected track:" << std::endl;
+                playList[i].getTrack();
+                return;
+            }
+        }
+        std::cout << "Track not found in the playlist!" << std::endl;
+    }
+
+    };
 
 int main() {
-    std::string command;
+    std::string command, trackName;
     Track sound1, sound2, sound3;
     Player music;
     sound1.setTrack("Test Sound 1.mp3", {0, 0, 0, 0, 4, 123}, 31 );
@@ -64,6 +81,11 @@ int main() {
         std::cin >> command;
         if (command == "read"){
             music.displayPlayList();
+        } else if (command == "play"){
+            std::cout << "Input track name to play: ";
+            std::cin.ignore();
+            std::getline(std::cin, trackName);
+            music.playMusic(trackName);
         }
     }
 
