@@ -69,7 +69,37 @@ public:
                 }
             }
     }
+    void pauseMusic(){
+        if (state == PlayerStatus::PLAY){
+            state == PlayerStatus::PAUSE;
+            std::cout << "Pause music. " << std::endl;
+        } else {
+            std::cout << "Track not selected for playback. " << std::endl;
+        }
+    }
 
+    void nextMusic(){
+        if (playList.empty()){
+            std::cout << "Track list empty! " << std::endl;
+            return;
+        }
+        state == PlayerStatus::PLAY;
+        status = true;
+        std::cout << "Playing randomly selected track:" << std::endl;
+        playList[(std::rand()% playList.size())].getTrack();
+        std::cout << "Please pause or stop current track" << std::endl;
+    }
+
+    void stopMusic(){
+        if (status && (state == PlayerStatus::PLAY || state == PlayerStatus::PAUSE)){
+            state == PlayerStatus::STOP;
+            status = false;
+            std::cout << "Stop music. " << std::endl;
+        } else {
+            std::cout << "Track not selected for playback. " << std::endl;
+        }
+
+    }
     };
 
 int main() {
@@ -84,7 +114,7 @@ int main() {
     music.addPlayList(sound2);
     music.addPlayList(sound3);
 
-    std::cout << "Music player (command: read - view playlist, play, pause, stop and exit" << std::endl;
+    std::cout << "Music player (command: read - view playlist, play, pause, next, stop and exit" << std::endl;
     while (command != "exit"){
         std::cout << "Input command player: ";
         std::cin >> command;
@@ -95,6 +125,12 @@ int main() {
                 std::cin.ignore();
                 std::getline(std::cin, trackName);
                 music.playMusic(trackName);
+        } else if (command == "pause"){
+                music.pauseMusic();
+        } else if (command == "next"){
+                music.nextMusic();
+        } else if (command == "stop"){
+                music.stopMusic();
         }
     }
 
